@@ -2,6 +2,7 @@
 
 package ejercicio.jonathan.gelvez;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -21,15 +22,17 @@ public class EjercicioJonathanGelvez {
             System.out.println("1. Agregar Docente");
             System.out.println("2. Eliminar Docente");
             System.out.println("3. Ver Docentes");
-            System.out.println("4. Agregar Curso");
-            System.out.println("5. Eliminar Curso");
-            System.out.println("6. Ver Curso");
-            System.out.println("7. Salir");
+            System.out.println("4. Ver Todos los Docentes");
+            System.out.println("5. Agregar Curso");
+            System.out.println("6. Eliminar Curso");
+            System.out.println("7. Ver Curso");
+            System.out.println("8. Salir");
             System.out.print("Ingrese su opción: ");
             opcion = scanner.nextInt();
             scanner.nextLine(); // Consumir el salto de línea después de leer el número
-
+      
             switch (opcion) {
+                    
                 case 1:
                     // Agregar Docente
                     System.out.println("\nIngrese los datos para el nuevo Docente:");
@@ -63,23 +66,31 @@ public class EjercicioJonathanGelvez {
 
                 case 3:
                     // Ver Docentes
-                     System.out.print("\nIngrese la identificación del docente a mostrar: ");
-                    String idMostrar = scanner.nextLine();
-                    Docente docenteMostrar = docenteArray.buscarDocentePorId(idMostrar);
+                      System.out.print("\nIngrese la identificación del docente a mostrar: ");
+    String idMostrar = scanner.nextLine();
+    Docente docenteMostrar = docenteArray.buscarDocentePorId(idMostrar);
 
-                      if (docenteMostrar != null) {
-                         System.out.println("\nInformación del Docente:");
-                         System.out.println("Identificación: " + docenteMostrar.getIdentificacion());
-                         System.out.println("Nombre: " + docenteMostrar.getNombre());
-                         System.out.println("Título: " + docenteMostrar.getTitulo());
-                         System.out.println("Disciplina: " + docenteMostrar.getDisciplina());
-                          System.out.println("-------------------------------------------------------------------------");
-                    } else {
-                         System.out.println("No se encontró un docente con la identificación proporcionada.");
-                    }
+    if (docenteMostrar != null) {
+        System.out.println("\nInformación del Docente:");
+        System.out.println("Identificación: " + docenteMostrar.getIdentificacion());
+        System.out.println("Nombre: " + docenteMostrar.getNombre());
+        System.out.println("Título: " + docenteMostrar.getTitulo());
+        System.out.println("Disciplina: " + docenteMostrar.getDisciplina());
+        System.out.println("-------------------------------------------------------------------------");
+    } else {
+        System.out.println("No se encontró un docente con la identificación proporcionada.");
+    }
+
+    break;
+    
+                case 4:
+                    
+                   System.out.println("\nTodos los docentes ordenados por nombre:");
+                    docenteArray.ordenarDocentesPorNombre();
+                    docenteArray.mostrarInformacionDocentes();
                     break;
                     
-                case 4:
+                case 5:
                     
                     System.out.println("\nIngrese los datos para el nuevo Curso:");
                     System.out.print("Código del Curso: ");
@@ -94,7 +105,7 @@ public class EjercicioJonathanGelvez {
                     cursoArray.agregarCurso(new Curso(codigoCurso, fechaCurso, salonCurso));
                     break;
                     
-                case 5:
+                case 6:
                     
                     System.out.print("\nIngrese el código del curso a eliminar: ");
                     String codigoEliminarCurso = scanner.nextLine();
@@ -107,7 +118,7 @@ public class EjercicioJonathanGelvez {
                     }
                     break;
                     
-                case 6:
+                case 7:
                     
                     System.out.print("\nIngrese el código del curso a mostrar: ");
                     String codigoMostrarCurso = scanner.nextLine();
@@ -124,15 +135,18 @@ public class EjercicioJonathanGelvez {
                     }
                     break;
 
-                case 7:
+                case 8:
                     // Salir
                         System.out.println("Saliendo del programa. ¡Hasta luego!");
                     break;
 
                 default:
-                        System.out.println("Opción no válida. Por favor, ingrese un número del 1 al 7.");
+                    System.out.println("Error: Por favor, ingrese un número del 1 al 7.");
             }
 
-        } while (opcion != 7);
+        } while (opcion != 9);
+
+        // Cerrar el Scanner
+        scanner.close();
     }
 }

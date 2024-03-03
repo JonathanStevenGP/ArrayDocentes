@@ -67,4 +67,28 @@ public void agregarDocente(Docente docente) {
         return null;
     }
     
+ public void ordenarDocentesPorNombre() {
+        if (docentes == null) {
+            System.out.println("La lista de docentes es nula. Asegúrate de inicializarla antes de ordenar.");
+            return;
+        }
+
+        int n = docentes.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Verificar si los elementos no son nulos antes de comparar nombres
+                if (docentes[j] != null && docentes[j + 1] != null &&
+                    docentes[j].getNombre() != null && docentes[j + 1].getNombre() != null) {
+                    // Comparar nombres de docentes y realizar el intercambio si es necesario
+                    if (docentes[j].getNombre().compareTo(docentes[j + 1].getNombre()) > 0) {
+                        // Realizar el intercambio
+                        Docente temp = docentes[j];
+                        docentes[j] = docentes[j + 1];
+                        docentes[j + 1] = temp;
+                    }
+                }
+            }
+        }
+    }
 }
