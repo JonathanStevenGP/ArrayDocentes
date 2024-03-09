@@ -17,12 +17,24 @@ public class Curso {
         return codigoCurso;
     }
 
+    public void setCodigoCurso(String codigoCurso) {
+        this.codigoCurso = codigoCurso;
+    }
+
     public String getFechaCurso() {
         return fechaCurso;
     }
 
+    public void setFechaCurso(String fechaCurso) {
+        this.fechaCurso = fechaCurso;
+    }
+
     public String getSalonCurso() {
         return salonCurso;
+    }
+
+    public void setSalonCurso(String salonCurso) {
+        this.salonCurso = salonCurso;
     }
 
 }

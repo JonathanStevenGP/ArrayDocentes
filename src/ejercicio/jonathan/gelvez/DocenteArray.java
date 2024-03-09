@@ -5,20 +5,24 @@ package ejercicio.jonathan.gelvez;
 public class DocenteArray {
     
     private Docente[] docentes;
+    private int cantidadDocentes;
     
-    public DocenteArray(int tamaño) {
-        docentes = new Docente[tamaño];
+    public DocenteArray(int capacidad) {
+        this.docentes = new Docente[capacidad];
+        this.cantidadDocentes = 0;
     }
     
 public void agregarDocente(Docente docente) {
-        for (int i = 0; i < docentes.length; i++) {
-            if (docentes[i] == null) {
-                docentes[i] = docente;
-                System.out.println("Docente agregado correctamente.");
-                return;
-            }
+        if (cantidadDocentes < docentes.length) {
+            docentes[cantidadDocentes] = docente;
+            cantidadDocentes++;
+            System.out.println("Docente agregado Correctamente");
+            System.out.println("----------------------------------------------------------");
+        } 
+        else {
+            System.out.println("No se puede agregar más docentes. La capacidad está llena.");
+            System.out.println("----------------------------------------------------------");
         }
-        System.out.println("No se pudo agregar el docente. El array está lleno.");
     }
 
     public boolean eliminarDocentePorId(String idEliminar) {
@@ -53,7 +57,7 @@ public void agregarDocente(Docente docente) {
                 System.out.println("Nombre: " + docente.getNombre());
                 System.out.println("Título: " + docente.getTitulo());
                 System.out.println("Disciplina: " + docente.getDisciplina());
-                System.out.println("-------------------------");
+                System.out.println("-----------------------------------------------");
             }
         }
     }
@@ -65,6 +69,14 @@ public void agregarDocente(Docente docente) {
             }
         }
         return null;
+    }
+    
+      public void mostrarInformacionDocentesConCursos() {
+        System.out.println("Información de Todos los Docentes:");
+
+        for (int i = 0; i < cantidadDocentes; i++) {
+            docentes[i].mostrarInformacionConCursos();
+        }
     }
     
  public void ordenarDocentesPorNombre() {
@@ -91,4 +103,35 @@ public void agregarDocente(Docente docente) {
             }
         }
     }
+
+    public void ordenarDocentesPorNombreMetodoIndirectoShell() {
+    int n = docentes.length;
+
+    for (int brecha = n / 2; brecha > 0; brecha /= 2) {
+        for (int i = brecha; i < n; i += 1) {
+            Docente temp = docentes[i];
+            int j;
+            for (j = i; j >= brecha && compararDocentesPorId(obtenerDocenteEnIndice(j - brecha), temp); j -= brecha) {
+                docentes[j] = docentes[j - brecha];
+            }
+            docentes[j] = temp;
+        }
+    }
 }
+
+private boolean compararDocentesPorId(Docente docente1, Docente docente2) {
+    if (docente1 == null || docente2 == null) {
+        return false;
+    }
+    return docente1.getIdentificacion().compareTo(docente2.getIdentificacion()) > 0;
+}
+
+private Docente obtenerDocenteEnIndice(int indice) {
+    if (indice >= 0 && indice < docentes.length) {
+        return docentes[indice];
+    }
+    return null;
+}
+
+}
+
